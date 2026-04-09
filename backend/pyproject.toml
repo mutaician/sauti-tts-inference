@@ -1,0 +1,19 @@
+[project]
+name = "sauti-tts-inference-backend"
+version = "0.1.0"
+description = "Inference-only Modal backend for Sauti TTS"
+requires-python = ">=3.11"
+dependencies = [
+  "fastapi",
+  "modal",
+  "numpy",
+  "rich",
+  "soundfile",
+  "torch",
+  "torchaudio",
+  "tqdm",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"

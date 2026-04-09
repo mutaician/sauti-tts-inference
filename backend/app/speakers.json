@@ -1,0 +1,34 @@
+{
+  "sample_rate_hz": 16000,
+  "speaker_count": 3,
+  "note": "Trimmed production speaker pack for public inference.",
+  "speakers": [
+    {
+      "waxal_speaker_id": 1,
+      "label": "Female 1",
+      "gender": "Female",
+      "reference_wav": "waxal_speaker_01.wav",
+      "ref_text": "Wakati wa asubuhi jua huonekana likiwa na rangi ya manjano na miale mieusi,huku mawingu yakipotelea kwa mbali yakiwa na rangi ya samawati.",
+      "source_utterance_id": "swa_22",
+      "source_duration_s": 11.142
+    },
+    {
+      "waxal_speaker_id": 4,
+      "label": "Male",
+      "gender": "Male",
+      "reference_wav": "waxal_speaker_04.wav",
+      "ref_text": "Majira ya asubuhi, hali ya mvua imeonekana kuwa asilimia kumi na nane lakini imebadilika saa saba mchana na kufikia asilimia tatu. Kwa hiyo wakati wa mchana kumekuwa na jua pamoja na upepo kiasi.",
+      "source_utterance_id": "swa_1582",
+      "source_duration_s": 11.998
+    },
+    {
+      "waxal_speaker_id": 6,
+      "label": "Female 2",
+      "gender": "Female",
+      "reference_wav": "waxal_speaker_06.wav",
+      "ref_text": "Mto Nile ndio mto pekee unaotiririka kwenda juu barani Afrika na nchini Uganda, unapatikana katika jiji la Jinja.",
+      "source_utterance_id": "swa_918",
+      "source_duration_s": 9.736
+    }
+  ]
+}
