@@ -2,8 +2,6 @@ from __future__ import annotations
 
 from pydantic import BaseModel, Field, field_validator
 
-MAX_TEXT_CHARS = 500
-
 
 class SpeakerResponse(BaseModel):
     speaker: int
@@ -11,7 +9,7 @@ class SpeakerResponse(BaseModel):
 
 
 class SynthesizeRequest(BaseModel):
-    text: str = Field(min_length=1, max_length=MAX_TEXT_CHARS)
+    text: str = Field(min_length=1)
     speaker: int
 
     @field_validator("text")
