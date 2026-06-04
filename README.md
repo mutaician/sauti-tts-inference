@@ -35,7 +35,6 @@ Minimal inference-only package for deploying Swahili TTS on Modal.
 ## Security Controls
 
 - Only speakers `1`, `4`, `6` are allowed.
-- Request validation limits text to `500` characters.
 - No user-provided paths or inference flags are accepted.
 - Shared IP-based rate limiting uses a Modal Dict.
 - CORS is restricted by `FRONTEND_ORIGINS`.

@@ -110,13 +110,12 @@ app.innerHTML = `
             <div class="grid gap-2">
               <div class="flex items-center justify-between gap-4">
                 <label for="text" class="text-sm font-semibold text-ink-soft">Text</label>
-                <span id="text-count" class="text-sm text-muted-soft">0 / 500</span>
               </div>
               <textarea
                 id="text"
                 name="text"
                 rows="6"
-                maxlength="500"
+                maxlength="50000"
                 placeholder="Andika sentensi yako hapa kwa Kiswahili."
                 required
                 class="min-h-[180px] w-full rounded-[24px] border border-line bg-white/85 px-4 py-4 text-base leading-8 text-foreground outline-none transition placeholder:text-muted-soft focus:border-brand/50 focus:ring-4 focus:ring-brand/10"
@@ -218,9 +217,6 @@ function updateSpeakerMeta(): void {
   speakerMeta.textContent = selected.subtitle;
 }
 
-function updateTextCount(): void {
-  textCount.textContent = `${textArea.value.length} / 500`;
-}
 
 function setStatus(
   message: string,
@@ -332,14 +328,11 @@ document.querySelectorAll<HTMLButtonElement>(".example-btn").forEach((button) =>
       return;
     }
     textArea.value = prompt;
-    updateTextCount();
     textArea.focus();
   });
 });
 
 speakerSelect.addEventListener("change", updateSpeakerMeta);
-textArea.addEventListener("input", updateTextCount);
 
 populateSpeakers();
-updateTextCount();
 setStatus("Select a voice and generate audio.", "default");
