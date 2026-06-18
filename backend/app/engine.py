@@ -3,6 +3,7 @@ from __future__ import annotations
 import inspect
 import json
 import logging
+import threading
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -73,17 +74,37 @@ class SautiTTSService:
     and runs synthesis via safe_infer_process (sequential chunks — safe on GPU).
     """
 
-    def __init__(self, checkpoint_path: str, speakers_json_path: str) -> None:
+    def __init__(
+        self,
+        checkpoint_path: str,
+        speakers_json_path: str,
+        *,
+        preload: bool = False,
+        load_lock: threading.Lock | None = None,
+    ) -> None:
         self.speakers = self._load_speakers(Path(speakers_json_path))
         self.checkpoint_path = checkpoint_path
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
         self.model = None
         self.vocoder = None
-        self._load_model()
+        self._load_lock = load_lock or threading.Lock()
+        if preload:
+            self.ensure_loaded()
+
+    def ensure_loaded(self) -> None:
+        if self.model is not None and self.vocoder is not None:
+            return
+        with self._load_lock:
+            if self.model is not None and self.vocoder is not None:
+                return
+            self._load_model()
 
     def _load_model(self) -> None:
         from f5_tts.infer.utils_infer import load_model
         from f5_tts.model import DiT
+
+        if not Path(self.checkpoint_path).is_file():
+            raise SynthesisError(f"Missing TTS checkpoint: {self.checkpoint_path}")
 
         _patch_torchaudio_load_with_soundfile()
         logger.info("Loading inference model from %s", self.checkpoint_path)
@@ -153,6 +174,7 @@ class SautiTTSService:
         if spec is None:
             raise SpeakerNotFoundError(f"Unsupported speaker: {speaker}")
 
+        self.ensure_loaded()
         normalized = normalize_swahili_text(text)
         _patch_torchaudio_load_with_soundfile()
 
